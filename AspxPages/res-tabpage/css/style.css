@@ -1,0 +1,13 @@
+﻿.container {
+    margin-top:5px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    border-top-color:indianred;
+    border-top-width:4px;
+}
+
+.nav-tabs>li>a:hover, .nav-tabs>li>a:focus {
+    border-top-color:lightcoral;
+    border-top-width:4px;
+}

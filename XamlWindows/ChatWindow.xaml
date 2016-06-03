@@ -1,0 +1,128 @@
+﻿<Window x:Name="windowChat" x:Class="XamlWindows.ChatWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XamlWindows"
+        xmlns:Ui="clr-namespace:XamlWindows"
+        mc:Ignorable="d"
+        Title="Chat Window" Left="0" Top="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}" Height="322" Width="336" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" Topmost="True" ShowInTaskbar="False">
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="brushWatermarkBackground" Color="Transparent" />
+        <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightGray" />
+        <SolidColorBrush x:Key="brushWatermarkBorder" Color="Transparent" />
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
+
+        <Style x:Key="EntryFieldStyle" TargetType="Grid" >
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="8,0,0,0" />
+        </Style>
+
+        <Style x:Key="FontAwesomeStyle" TargetType="Button">
+            <Setter Property="FontFamily"  Value="pack://application:,,,/fonts/#FontAwesome" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="0">
+        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="0" CornerRadius="4,4,4,4">
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="#4F67A7" BorderBrush="Gainsboro" BorderThickness="0" CornerRadius="3,3,0,0">
+                    <Grid x:Name="gridTitle" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="33"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Name="labelTitle" Foreground="GhostWhite" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="center" Content="Jane London"/>
+                        <Button Grid.Column="1" x:Name="buttonMinimize" Style="{StaticResource FontAwesomeStyle}" Content="{x:Static Ui:Fa.Minus}" HorizontalAlignment="Right" Margin="5,5,5,5" VerticalAlignment="Center" Height="22" Width="22" Click="buttonMinimize_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid>
+                                        <Ellipse Fill="White"/>
+                                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Row="1" Margin="10">
+                    <Grid Margin="0,0,0,0">
+                        <Line Fill="LightGray" Stretch="Fill" VerticalAlignment="Center" Stroke="LightGray" Grid.Column="0" StrokeThickness="1" X2="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                        <Label FontSize="9" FontWeight="Bold" Foreground="LightGray" Background="White" Width="80" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Tue, 5:03 PM" />
+                    </Grid>
+                    <Grid Margin="0,10,20,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Height="36" Width="36" Grid.Column="0">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="YourImage.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Rectangle Fill="White" Stroke="LightGray" RadiusX="10" RadiusY="10" Grid.Column="2"/>
+                        <TextBlock Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" Text="Your text" TextWrapping="Wrap" Margin="5,5,5,5" Grid.Column="2"/>
+                        <Path Fill="White" Stretch="Fill" Stroke="LightGray" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,15,-1.5,10" Width="8" Grid.Column="1" Data="M30,182 L29.999666,188 30,190"/>
+                    </Grid>
+                    <Grid Margin="20,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Height="36" Width="36" Grid.Column="2">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="MeImage.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Rectangle Fill="#e4f1fa" Stroke="#d0e9f4" RadiusX="10" RadiusY="10" Grid.Column="0"/>
+                        <TextBlock Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" Text="Me text" TextWrapping="Wrap" Grid.Column="0"/>
+                        <Path Fill="#e4f1fa" Stretch="Fill" Stroke="#d0e9f4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-1.5,15,0,10" Width="8" Grid.Column="1" Data="M0,182 L29.999666,188 0,190"/>
+                    </Grid>
+                </StackPanel>
+                <Border Grid.Row="2" Background="#E7EBF4" BorderThickness="0" CornerRadius="0,0,3,3">
+                    <Border Background="#FFFFFF" BorderBrush="#D8D8D8" BorderThickness="1" Margin="12,10,12,10" CornerRadius="3,3,3,3">
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+                                <TextBlock Text="Type text..." Foreground="{StaticResource brushWatermarkForeground}"
+                                    Visibility="{Binding ElementName=textBox, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <TextBox Name="textBox" BorderThickness="0" Foreground="Gray" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+                            </Grid>
+                            <Button Grid.Column="1" x:Name="buttonSend" FontSize="20" Foreground="Gray" Opacity="0.3" BorderThickness="0" Background="Transparent" Style="{StaticResource FontAwesomeStyle}" Content="{x:Static Ui:Fa.Plus_circle}" HorizontalAlignment="Right" Margin="5,5,5,5" VerticalAlignment="Center" Height="22" Width="22" Click="buttonSend_Click"/>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="buttonMinimize">
+            <BeginStoryboard>
+                <Storyboard CurrentTimeInvalidated="StoryboardPullDown_CurrentTimeInvalidated" Completed="StoryboardPullDown_Completed" >
+                    <DoubleAnimation x:Name="pullDownAnimation" Duration="0:0:.3" Storyboard.TargetProperty="Top" From="0" To="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}" AccelerationRatio=".4"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseDown" SourceName="gridTitle">
+            <BeginStoryboard>
+                <Storyboard CurrentTimeInvalidated="StoryboardPopup_CurrentTimeInvalidated" Completed="StoryboardPopup_Completed">
+                    <DoubleAnimation x:Name="popupAnimation" Duration="0:0:.3" Storyboard.TargetProperty="Top" From="{Binding Source={x:Static SystemParameters.FullPrimaryScreenHeight}}" To="0" AccelerationRatio=".4"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+</Window>
