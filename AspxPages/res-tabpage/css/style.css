@@ -11,3 +11,12 @@
     border-top-color:lightcoral;
     border-top-width:4px;
 }
+
+.tabbody {
+    border-width:1px;
+    border-color:rgb(221,221,221);
+    border-style:solid;
+    border-top-width:0px;
+    min-height:100px;
+    padding:10px;
+}

@@ -223,7 +223,6 @@
     <Content Include="res-mbostock1\json\readme-flare-imports.json" />
     <Content Include="res-palmberg-tree\json\tree-data.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="res-highcharts\highcharts.html" />
     <Content Include="res-highcharts\highslide\graphics\outlines\rounded-white.png" />
     <Content Include="res-highcharts\joomla\js\covervid\covervid.js" />
     <Content Include="res-highcharts\joomla\js\covervid\fullscreen.js" />
@@ -325,7 +324,6 @@
     <Content Include="res-tabpage\css\style.css" />
     <Content Include="res-tabpage\js\jquery.1.12.2.min.js" />
     <Content Include="res-tabpage\js\script.js" />
-    <Content Include="res-tabpage\tabpage.html" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
