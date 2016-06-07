@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="XamlWindows.ConversationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:XamlWindows"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="460">
+
+    <UserControl.Resources>
+        <local:StringFormatConverter x:Key="StringFormatConverter"/>
+
+        <!--Me under you-->
+        <DataTemplate x:Key="A">
+            <Grid Margin="20,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Height="36" Width="36" Grid.Column="2">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="MeImage.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Rectangle Fill="#e4f1fa" Stroke="#d0e9f4" RadiusX="10" RadiusY="10" Grid.Column="0"/>
+                <TextBlock Text="{Binding Path=Text}" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap" Grid.Column="0"/>
+                <Path Fill="#e4f1fa" Stretch="Fill" Stroke="#d0e9f4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-1.5,15,0,10" Width="8" Grid.Column="1" Data="M0,182 L29.999666,188 0,190"/>
+            </Grid>
+        </DataTemplate>
+        <!--You under me-->
+        <DataTemplate x:Key="B">
+            <Grid Margin="0,10,20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Height="36" Width="36" Grid.Column="0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="YourImage.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Rectangle Fill="White" Stroke="LightGray" RadiusX="10" RadiusY="10" Grid.Column="2"/>
+                <TextBlock Text="{Binding Path=Text}" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap" Margin="5,5,5,5" Grid.Column="2"/>
+                <Path Fill="White" Stretch="Fill" Stroke="LightGray" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,15,-1.5,10" Width="8" Grid.Column="1" Data="M30,182 L29.999666,188 30,190"/>
+            </Grid>
+        </DataTemplate>
+        <!--You under you-->
+        <DataTemplate x:Key="C">
+            <Grid Margin="0,10,20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Height="36" Width="36" Grid.Column="0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="YourImage.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Rectangle Fill="White" Stroke="LightGray" RadiusX="10" RadiusY="10" Grid.Column="2"/>
+                <TextBlock Text="{Binding Path=Text}" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap" Margin="5,5,5,5" Grid.Column="2"/>
+                <Path Fill="White" Stretch="Fill" Stroke="LightGray" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,15,-1.5,10" Width="8" Grid.Column="1" Data="M30,182 L29.999666,188 30,190"/>
+            </Grid>
+        </DataTemplate>
+        <!--Me under me-->
+        <DataTemplate x:Key="D">
+            <Grid Margin="20,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Height="36" Width="36" Grid.Column="2">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="MeImage.jpg"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Rectangle Fill="#e4f1fa" Stroke="#d0e9f4" RadiusX="10" RadiusY="10" Grid.Column="0"/>
+                <TextBlock Text="{Binding Path=Text}" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap" Grid.Column="0"/>
+                <Path Fill="#e4f1fa" Stretch="Fill" Stroke="#d0e9f4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-1.5,15,0,10" Width="8" Grid.Column="1" Data="M0,182 L29.999666,188 0,190"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemTemplateSelector>
+                <local:MessageTemplateSelector
+                A="{StaticResource A}"
+                B="{StaticResource B}"
+                C="{StaticResource C}"
+                D="{StaticResource D}"/>
+            </ItemsControl.ItemTemplateSelector>
+        </ItemsControl>
+    </Grid>
+    
+</UserControl>
