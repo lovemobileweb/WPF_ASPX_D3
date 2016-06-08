@@ -184,6 +184,7 @@
   <ItemGroup>
     <Content Include="highcharts.html" />
     <Content Include="highcharts.aspx" />
+    <Content Include="Images\fractal.jpg" />
     <Content Include="res-highcharts\css\style.css" />
     <Content Include="res-highcharts\js\script.js" />
     <Content Include="palmberg-tree.aspx" />
