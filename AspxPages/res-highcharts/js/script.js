@@ -2,8 +2,43 @@
 
 var example = 'us-counties', 
 theme = 'default';
+var iHighchartsIndex = 0;
+var iIntervalSecond = 1;
+var arrHighchartsData = [];
+var hAnimateTimer;
 
-(function($){ // encapsulate jQuery
+(function ($) { // encapsulate jQuery
+    function myfunc_initdata()
+    {
+        arrHighchartsData = [];
+    }
+
+    function myfunc_setdata(arrData)
+    {
+        arrHighchartsData = arrData;
+    }
+
+    function myfunc_adddata(data)
+    {
+        arrHighchartsData[arrHighchartsData.length] = data;
+    }
+
+    function myfunc_highcharts_animate(intervalSecond)
+    {
+        iIntervalSecond = intervalSecond;
+        iHighchartsIndex = 0;
+        hAnimateTimer = setTimeout(myfunc_onAnimatedHighcharts, iIntervalSecond * 1000);
+    }
+
+    function myfunc_onAnimatedHighcharts()
+    {
+        if (arrHighchartsData.length > 0)
+            myfunc_highcharts(arrHighchartsData[iHighchartsIndex++ % arrHighchartsData.length]);
+        setTimeout(myfunc_onAnimatedHighcharts, iIntervalSecond * 1000);
+        //if (arrHighchartsData.length >= 0 && iHighchartsIndex < arrHighchartsData.length)
+        //    hAnimateTimer = setTimeout(myfunc_onAnimatedHighcharts, iIntervalSecond * 1000);
+    }
+
     function myfunc_highcharts(data)
     {
 
@@ -121,9 +156,18 @@ theme = 'default';
         $('#container').highcharts('Map', options);
     }
 
-	$(function () {
-    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=us-counties-unemployment.json&callback=?', myfunc_highcharts);
-});
+    // load data array //
+    myfunc_initdata();
+    $.getJSON('/res-highcharts/json/data1.json', myfunc_adddata);
+    $.getJSON('/res-highcharts/json/data2.json', myfunc_adddata);
+    $.getJSON('/res-highcharts/json/data3.json', myfunc_adddata);
+    //$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=us-counties-unemployment.json&callback=?', myfunc_adddata);
+    /////////////////////
+
+    // display data //
+    setTimeout(myfunc_highcharts_animate(1), 2000);
+    //////////////////
+
 })(jQuery);
 jQuery(document).ready(function(){jQuery("#view-menu").click(function(e){jQuery("#wrap").toggleClass("toggled")}),jQuery("#sidebar-close").click(function(e){jQuery("#wrap").removeClass("toggled")}),jQuery(document).keydown(function(e){var t;"INPUT"!=e.target.tagName&&(39==e.keyCode?t=document.getElementById("next-example"):37==e.keyCode&&(t=document.getElementById("previous-example")),t&&(location.href=t.href))}),jQuery("#switcher-selector").bind("change",function(){var e=jQuery(this).val();return e&&(window.location=e),!1})});
 

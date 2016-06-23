@@ -271,7 +271,19 @@ function myfunc_palmberg_tree(data)
 
     createTooltips();
     createNameBoxes();
-    // Close create chart
+
+    var nodes = [];
+    nodes[0] = 'EmanuellaIsrael';
+    nodes[1] = 'HannahAltman';
+    myfunc_blink(nodes, 3);
+}
+
+function myfunc_blink(nodes, numberOfSeconds) {
+    for (i = 0; i != numberOfSeconds; i++) {
+        nodes.forEach(function (node) {
+            $('#'+node+'>image').fadeTo('slow', 0.1).fadeTo('slow', 5.0);
+        });
+    }
 }
 
 // Wrap all of this in a function so we can recall it later

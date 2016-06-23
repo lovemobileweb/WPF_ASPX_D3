@@ -182,7 +182,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="highcharts.html" />
     <Content Include="highcharts.aspx" />
     <Content Include="Images\fractal.jpg" />
     <Content Include="res-highcharts\css\style.css" />
@@ -221,8 +220,13 @@
     </Content>
     <Content Include="res-mbostock1\css\style.css" />
     <Content Include="res-mbostock1\js\script.js" />
-    <Content Include="res-mbostock1\json\readme-flare-imports.json" />
+    <Content Include="res-mbostock1\json\data1.json" />
     <Content Include="res-palmberg-tree\json\tree-data.json" />
+    <Content Include="res-highcharts\json\data1.json" />
+    <Content Include="res-highcharts\json\data2.json" />
+    <Content Include="res-highcharts\json\data3.json" />
+    <Content Include="res-mbostock1\json\data3.json" />
+    <Content Include="res-mbostock1\json\data2.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="res-highcharts\highslide\graphics\outlines\rounded-white.png" />
     <Content Include="res-highcharts\joomla\js\covervid\covervid.js" />

@@ -1,4 +1,17 @@
-﻿
+﻿var iIntervalSecond = 1;
+var hAnimateTimer;
+
+function myfunc_mbostock_animate(intervalSecond) {
+    iIntervalSecond = intervalSecond;
+    iMbostockIndex = 0;
+    hAnimateTimer = setTimeout(myfunc_onAnimatedMbostock, iIntervalSecond * 1000);
+}
+
+function myfunc_onAnimatedMbostock() {
+    transition();
+    setTimeout(myfunc_onAnimatedMbostock, iIntervalSecond * 1000);
+}
+
 var n = 20, // number of layers
     m = 200, // number of samples per layer
     stack = d3.layout.stack().offset("wiggle"),
@@ -30,7 +43,7 @@ var svg = d3.select("body").append("svg")
 
 svg.selectAll("path")
     .data(layers0)
-  .enter().append("path")
+    .enter().append("path")
     .attr("d", area)
     .style("fill", function () { return color(Math.random()); });
 
@@ -64,3 +77,5 @@ function bumpLayer(n) {
     for (i = 0; i < 5; ++i) bump(a);
     return a.map(function (d, i) { return { x: i, y: Math.max(0, d) }; });
 }
+
+myfunc_mbostock_animate(1);

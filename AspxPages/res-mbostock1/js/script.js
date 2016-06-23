@@ -1,5 +1,60 @@
-﻿function myfunc_mbostock(error, classes) {
+﻿var iMbostockIndex = 0;
+var iIntervalSecond = 1;
+var arrMbostockData = [];
+var hAnimateTimer;
+
+function myfunc_initdata() {
+    arrMbostockData = [];
+}
+
+function myfunc_setdata(arrData) {
+    arrMbostockData = arrData;
+}
+
+function myfunc_adddata(error, data) {
+    arrMbostockData[arrMbostockData.length] = data;
+}
+
+function myfunc_mbostock_animate(intervalSecond) {
+    iIntervalSecond = intervalSecond;
+    iMbostockIndex = 0;
+    hAnimateTimer = setTimeout(myfunc_onAnimatedMbostock, iIntervalSecond * 1000);
+}
+
+function myfunc_onAnimatedMbostock() {
+    if (arrMbostockData.length > 0)
+        myfunc_mbostock(null, arrMbostockData[iMbostockIndex++ % arrMbostockData.length]);
+    setTimeout(myfunc_onAnimatedMbostock, iIntervalSecond * 1000);
+}
+
+function myfunc_mbostock(error, classes) {
     if (error) throw error;
+
+    if ($("svg").length > 0)
+        d3.select("svg").remove();
+
+    var diameter = 960,
+        radius = diameter / 2,
+        innerRadius = radius - 120;
+
+    var cluster = d3.layout.cluster()
+        .size([360, innerRadius])
+        .sort(null)
+        .value(function (d) { return d.size; });
+
+    var bundle = d3.layout.bundle();
+
+    var line = d3.svg.line.radial()
+        .interpolate("bundle")
+        .tension(.85)
+        .radius(function (d) { return d.y; })
+        .angle(function (d) { return d.x / 180 * Math.PI; });
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+      .append("g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
 
     var nodes = cluster.nodes(packageHierarchy(classes)),
         links = packageImports(nodes);
@@ -21,33 +76,20 @@
         .attr("text-anchor", function (d) { return d.x < 180 ? "start" : "end"; })
         .attr("transform", function (d) { return d.x < 180 ? null : "rotate(180)"; })
         .text(function (d) { return d.key; });
+
+    d3.select(self.frameElement).style("height", diameter + "px");
 }
-var diameter = 960,
-    radius = diameter / 2,
-    innerRadius = radius - 120;
 
-var cluster = d3.layout.cluster()
-    .size([360, innerRadius])
-    .sort(null)
-    .value(function (d) { return d.size; });
+// load data array //
+myfunc_initdata();
+d3.json("/res-mbostock1/json/data1.json", myfunc_adddata);
+d3.json("/res-mbostock1/json/data2.json", myfunc_adddata);
+d3.json("/res-mbostock1/json/data3.json", myfunc_adddata);
+/////////////////////
 
-var bundle = d3.layout.bundle();
-
-var line = d3.svg.line.radial()
-    .interpolate("bundle")
-    .tension(.85)
-    .radius(function (d) { return d.y; })
-    .angle(function (d) { return d.x / 180 * Math.PI; });
-
-var svg = d3.select("body").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-  .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
-
-d3.json("/res-mbostock1/json/readme-flare-imports.json", myfunc_mbostock);
-
-d3.select(self.frameElement).style("height", diameter + "px");
+// display data //
+setTimeout(myfunc_mbostock_animate(1), 2000);
+//////////////////
 
 // Lazily construct the package hierarchy from class names.
 function packageHierarchy(classes) {
